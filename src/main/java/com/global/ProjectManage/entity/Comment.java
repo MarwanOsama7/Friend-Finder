@@ -1,11 +1,18 @@
 package com.global.ProjectManage.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import com.global.UserManage.entity.AppUser;
@@ -16,20 +23,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "friends")
+@Table(name = "comment")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Friend {
+public class Comment {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	private String text;
 
-	private int idFriend;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private AppUser user;
+	
+	@ManyToMany
+	@JoinTable(name = "comment_post",
+	joinColumns = @JoinColumn(name = "comment_id"),
+	inverseJoinColumns = @JoinColumn(name = "post_id"))
+	@OrderColumn(name = "id")
+	private Set<Post> posts = new HashSet<>();
 }
