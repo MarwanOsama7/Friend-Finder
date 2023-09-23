@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.global.UserManage.entity.AppUser;
 
 import lombok.AllArgsConstructor;
@@ -46,6 +47,7 @@ public class Post {
 	@JoinColumn(name = "user_id")
 	private AppUser user;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "posts")
 	private Set<Comment> comments = new HashSet<>();
 

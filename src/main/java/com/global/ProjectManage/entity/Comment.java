@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.global.UserManage.entity.AppUser;
 
 import lombok.AllArgsConstructor;
@@ -37,15 +38,18 @@ public class Comment {
 	
 	private String text;
 
-
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private AppUser user;
 	
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "comment_post",
 	joinColumns = @JoinColumn(name = "comment_id"),
 	inverseJoinColumns = @JoinColumn(name = "post_id"))
 	@OrderColumn(name = "id")
 	private Set<Post> posts = new HashSet<>();
+	
+ 
 }
