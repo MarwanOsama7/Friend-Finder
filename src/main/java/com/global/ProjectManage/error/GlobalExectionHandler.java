@@ -21,4 +21,15 @@ public class GlobalExectionHandler {
 				.status(HttpStatus.NOT_FOUND)
 				.body(errorResponse);
 	}
+	
+//	AlreadyFriendsException
+	@ExceptionHandler(AlreadyFriendsException.class)
+	public ResponseEntity<?> AlreadyFriends(AlreadyFriendsException ex) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getLocalizedMessage(),Arrays.asList(ex.getMessage()));
+		
+		return ResponseEntity
+				.status(HttpStatus.NOT_FOUND)
+				.body(errorResponse);
+	}
+	
 }

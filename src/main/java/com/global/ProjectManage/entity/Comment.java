@@ -31,25 +31,21 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Comment {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String text;
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private AppUser user;
-	
+
 	@JsonBackReference
 	@ManyToMany
-	@JoinTable(name = "comment_post",
-	joinColumns = @JoinColumn(name = "comment_id"),
-	inverseJoinColumns = @JoinColumn(name = "post_id"))
+	@JoinTable(name = "comment_post", joinColumns = @JoinColumn(name = "comment_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
 	@OrderColumn(name = "id")
 	private Set<Post> posts = new HashSet<>();
-	
- 
+
 }

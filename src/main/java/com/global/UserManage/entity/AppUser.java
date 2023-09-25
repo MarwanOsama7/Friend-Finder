@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.global.ProjectManage.entity.Comment;
 import com.global.ProjectManage.entity.Friend;
 import com.global.ProjectManage.entity.Post;
@@ -39,17 +41,21 @@ public class AppUser {
 	private String phone;
 	private String gender;
 	
-	@JsonIgnore
+	@JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
-	@JsonIgnore
+	@JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Comment> comment;
 	
-	@JsonIgnore
-    @OneToMany(mappedBy = "user")
+	@JsonManagedReference
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
     private List<Friend> friends;
+	
+	@JsonManagedReference
+    @OneToMany(mappedBy = "friend" ,cascade = CascadeType.ALL)
+    private List<Friend> friends2;
     
 	@JsonIgnore
 	@ManyToMany
@@ -64,16 +70,5 @@ public class AppUser {
 		this.id = id;
 	}
 
-	public AppUser(Long id, String email, String firstname, String password, String age, String phone, String gender,
-			Set<Role> roles) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.firstname = firstname;
-		this.password = password;
-		this.age = age;
-		this.phone = phone;
-		this.gender = gender;
-		this.role = roles;
-	}
+
 }

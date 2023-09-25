@@ -1,5 +1,7 @@
 package com.global.ProjectManage.controller;
 
+
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +34,7 @@ public class PostController {
 
 	@GetMapping("/finduserid/{id}")
 	public ResponseEntity<?> findByUserId(@PathVariable Long id) {
-		return ResponseEntity.ok(service.findByUserId(id));
+		return ResponseEntity.ok(service.findPostsByUserId(id));
 	}
+
 }

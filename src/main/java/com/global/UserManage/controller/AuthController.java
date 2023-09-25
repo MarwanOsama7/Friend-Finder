@@ -20,24 +20,32 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
-	
+
 	private final TokenUtil tokenUtil;
 	private final UserService service;
-	
+
 	@PostMapping("/signin")
 	public JwtToken signin(@RequestBody SignInRequest signInRequest) {
 		return tokenUtil.signin(signInRequest);
 	}
+
 	@PostMapping("/signup")
 	public ResponseEntity<?> save(@RequestBody AppUser user) {
 		return ResponseEntity.ok(service.save(user));
 	}
+
 	@GetMapping("/findbyid/{id}")
 	public ResponseEntity<?> findbyid(@PathVariable Long id) {
 		return ResponseEntity.ok(service.findById(id));
 	}
+
 	@GetMapping("/findall")
 	public ResponseEntity<?> findall() {
 		return ResponseEntity.ok(service.findall());
+	}
+
+	@GetMapping("/userid/{userId}")
+	public AppUser getUserWithPostsAndComments(@PathVariable Long userId) {
+		return service.getUserWithPostsAndComments(userId);
 	}
 }

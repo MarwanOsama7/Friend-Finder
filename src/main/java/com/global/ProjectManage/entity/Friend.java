@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.global.UserManage.entity.AppUser;
 
 import lombok.AllArgsConstructor;
@@ -27,9 +28,13 @@ public class Friend {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private int idFriend;
+	@JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private AppUser user;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private AppUser user;
+	@JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "friend_id")
+    private AppUser friend;
 }

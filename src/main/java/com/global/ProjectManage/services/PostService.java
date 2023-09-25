@@ -41,8 +41,8 @@ public class PostService {
 		return repo.save(post);
 	}
 
-	public List<Post> findByUserId(Long id) {
-		return repo.findByUserId(id);
+	public List<postdto> findPostsByUserId(Long id) {
+		return repo.findPostsByUserId(id);
 	}
 	
 	public Post findById(Long id) {

@@ -45,7 +45,9 @@ public class UserService implements UserDetailsService {
 		entity.getRole().add(roleService.findAll().get(1));
 		return repo.save(entity);
 	}
-
+    public AppUser getUserWithPostsAndComments(Long userId) {
+        return repo.findUserWithPostsAndComments(userId);
+    }
 	public AppUser finduser(String email) {
 
 		return repo.findByEmail(email);
