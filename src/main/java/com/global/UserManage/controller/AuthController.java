@@ -1,5 +1,7 @@
 package com.global.UserManage.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,14 +40,17 @@ public class AuthController {
 	public ResponseEntity<?> findbyid(@PathVariable Long id) {
 		return ResponseEntity.ok(service.findById(id));
 	}
-
-	@GetMapping("/findall")
-	public ResponseEntity<?> findall() {
-		return ResponseEntity.ok(service.findall());
+	@GetMapping("/finduser/{email}")
+	public ResponseEntity<?> finduser(@PathVariable String email) {
+		return ResponseEntity.ok(service.finduser(email));
 	}
-
 	@GetMapping("/userid/{userId}")
 	public AppUser getUserWithPostsAndComments(@PathVariable Long userId) {
 		return service.getUserWithPostsAndComments(userId);
+	}
+
+	@GetMapping("/findall")
+	public List<AppUser> getAllUsersExceptCurrent() {
+		return service.findAllUsersNotFriendsWithCurrentUser();
 	}
 }

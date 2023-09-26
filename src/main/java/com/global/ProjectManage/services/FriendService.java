@@ -59,4 +59,6 @@ public class FriendService {
 		// Check if the friend relationship already exists
 		return repo.existsByUserAndFriend(user, friend);
 	}
+	
+	
 }
