@@ -37,12 +37,12 @@ public class Comment {
 
 	private String text;
 
-	@JsonBackReference
+	@JsonBackReference(value = "commentsReference")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private AppUser user;
 
-	@JsonBackReference
+	@JsonBackReference(value = "postsReference")
 	@ManyToMany
 	@JoinTable(name = "comment_post", joinColumns = @JoinColumn(name = "comment_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
 	@OrderColumn(name = "id")

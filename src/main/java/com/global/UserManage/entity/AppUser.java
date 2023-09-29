@@ -1,5 +1,6 @@
 package com.global.UserManage.entity;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,35 +41,33 @@ public class AppUser {
 	private String age;
 	private String phone;
 	private String gender;
-	
-	@JsonManagedReference
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts;
+	private LocalDate date;
 
-	@JsonManagedReference
-    @OneToMany(mappedBy = "user")
-    private List<Comment> comment;
-	
-	@JsonManagedReference
-    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
-    private List<Friend> friends;
-	
-	@JsonManagedReference
-    @OneToMany(mappedBy = "friend" ,cascade = CascadeType.ALL)
-    private List<Friend> friends2;
-    
+	@JsonManagedReference(value = "postsReference")
+	@OneToMany(mappedBy = "user")
+	private List<Post> posts;
+
+	@JsonManagedReference(value = "commentsReference")
+	@OneToMany(mappedBy = "user")
+	private List<Comment> comments;
+
+	@JsonManagedReference(value = "friendsReference")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Friend> friends;
+
+	@JsonManagedReference(value = "friends2Reference")
+	@OneToMany(mappedBy = "friend", cascade = CascadeType.ALL)
+	private List<Friend> friends2;
+
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "sec_user_role",
-	joinColumns = @JoinColumn(name = "user_id"),
-	inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "sec_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	@OrderColumn(name = "id")
 	private Set<Role> role = new HashSet<>();
-	
+
 	public AppUser(Long id) {
 		super();
 		this.id = id;
 	}
-
 
 }

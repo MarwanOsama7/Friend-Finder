@@ -1,5 +1,6 @@
 package com.global.UserManage.services;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +56,6 @@ public class UserService implements UserDetailsService {
 			return Collections.emptyList(); // or throw an exception
 		}
 	}
-
 	public Optional<AppUser> findById(Long id) {
 		Optional<AppUser> entity = repo.findById(id);
 		if (entity.isPresent()) {
@@ -72,6 +72,7 @@ public class UserService implements UserDetailsService {
 	public AppUser save(AppUser entity) {
 		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 		entity.getRole().add(roleService.findAll().get(1));
+		entity.setDate(LocalDate.now());
 		return repo.save(entity);
 	}
 

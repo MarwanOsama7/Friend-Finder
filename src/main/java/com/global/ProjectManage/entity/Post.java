@@ -1,5 +1,6 @@
 package com.global.ProjectManage.entity;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.global.UserManage.entity.AppUser;
 
 import lombok.AllArgsConstructor;
@@ -39,14 +40,14 @@ public class Post {
 	@Lob
 	private String text;
 
-//    private int likes;
+	private LocalDate date;
 
-	@JsonIgnore
+	@JsonBackReference(value = "postsReference")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private AppUser user;
 
-	@JsonIgnore
+	@JsonBackReference(value = "commentsReference")
 	@ManyToMany(mappedBy = "posts")
 	private Set<Comment> comments = new HashSet<>();
 

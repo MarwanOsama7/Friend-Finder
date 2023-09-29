@@ -57,7 +57,13 @@ public class FriendService {
 
 	public boolean areFriends(AppUser user, AppUser friend) {
 		// Check if the friend relationship already exists
-		return repo.existsByUserAndFriend(user, friend);
+		if (user.getId() != friend.getId()) {
+			return repo.existsByUserAndFriend(user, friend);
+		} else {
+			return true;
+		}
+
+		
 	}
 	
 	

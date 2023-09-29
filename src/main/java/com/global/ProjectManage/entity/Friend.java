@@ -28,12 +28,12 @@ public class Friend {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@JsonBackReference
+	@JsonBackReference(value = "friendsReference")
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser user;
 
-	@JsonBackReference
+	@JsonBackReference(value = "friends2Reference")
     @ManyToOne
     @JoinColumn(name = "friend_id")
     private AppUser friend;

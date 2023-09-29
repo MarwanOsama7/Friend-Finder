@@ -14,7 +14,7 @@ public interface PostRepo extends JpaRepository<Post, Long>{
 	List<Post> findByUserId(Long id);
 	
 	
-	@Query("SELECT NEW com.global.ProjectManage.dto.postdto(p.id, p.img, p.text, p.user.id, p.user.firstname) FROM Post p WHERE p.user.id = :userId")
+	@Query("SELECT NEW com.global.ProjectManage.dto.postdto(p.id, p.img, p.text, p.user.id, p.user.firstname,p.date) FROM Post p WHERE p.user.id = :userId")
 	List<postdto> findPostsByUserId(@Param("userId") Long userId);
 
 }
